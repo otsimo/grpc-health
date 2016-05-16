@@ -1,0 +1,112 @@
+hash: de91f5168d7c4df053ae68fc30072f949f15b6e3ad1600a4ed14813946064b4c
+updated: 2016-05-16T11:41:10.396287023+03:00
+imports:
+- name: camlistore.org
+  version: 0a761efc7c3d1a003ad7bb350bb38bb034a67eee
+  subpackages:
+  - pkg/googlestorage
+  - pkg/blob
+  - pkg/constants
+- name: github.com/golang/glog
+  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+- name: github.com/golang/protobuf
+  version: 7cc19b78d562895b13596ddce7aafb59dd789318
+  subpackages:
+  - proto
+  - proto/testdata
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/empty
+  - ptypes/timestamp
+  - ptypes/wrappers
+  - ptypes/struct
+- name: go4.org
+  version: 03efcb870d84809319ea509714dd6d19a1498483
+  subpackages:
+  - syncutil/singleflight
+  - readerutil
+- name: golang.org/x/crypto
+  version: b6789ab629056511030d652d851e7dc10c9e9c9e
+  subpackages:
+  - ssh/terminal
+- name: golang.org/x/net
+  version: ef00b378c73f107bf44d5c9b69875255ce89b79a
+  subpackages:
+  - context
+  - http2
+  - trace
+  - http2/hpack
+  - internal/timeseries
+- name: golang.org/x/oauth2
+  version: e86e2718db89775a4604abc10a5d3a5672e7336e
+  subpackages:
+  - google
+  - jwt
+  - internal
+  - jws
+- name: google.golang.org/api
+  version: 4300f6b0c8a7f09e521dd0af2cee27e28846e037
+  subpackages:
+  - compute/v1
+  - storage/v1
+  - gensupport
+  - googleapi
+  - googleapi/internal/uritemplates
+  - bigquery/v2
+  - container/v1
+  - logging/v1beta3
+  - pubsub/v1
+- name: google.golang.org/appengine
+  version: e234e71924d4aa52444bc76f2f831f13fa1eca60
+  subpackages:
+  - urlfetch
+  - internal
+  - internal/urlfetch
+  - internal/app_identity
+  - internal/modules
+  - user
+  - datastore
+  - internal/base
+  - internal/blobstore
+  - internal/capability
+  - log
+  - internal/channel
+  - internal/datastore
+  - taskqueue
+  - internal/image
+  - internal/log
+  - internal/remote_api
+- name: google.golang.org/cloud
+  version: 47856689284450ce6d8a36bdfd9df5f31b4191a0
+  subpackages:
+  - compute/metadata
+  - internal
+  - bigtable/internal/cluster_service_proto
+  - bigtable/internal/data_proto
+  - bigtable/internal/service_proto
+  - bigtable/internal/table_data_proto
+  - bigtable/internal/table_service_proto
+  - bigtable/internal/rpc_status_proto
+  - bigtable/internal/cbtrc
+  - datastore/internal/proto
+  - datastore/internal/type_proto
+  - pubsub
+  - storage
+- name: google.golang.org/grpc
+  version: 4c4ed377c72e199edd16a87011f13a56fd519119
+  subpackages:
+  - codes
+  - credentials
+  - grpclog
+  - internal
+  - metadata
+  - naming
+  - transport
+  - benchmark/grpc_testing
+  - benchmark/stats
+  - examples/helloworld/helloworld
+  - examples/route_guide/routeguide
+  - health/grpc_health_v1
+  - interop/grpc_testing
+  - stress/grpc_testing
+devImports: []

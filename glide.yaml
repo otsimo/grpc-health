@@ -1,0 +1,3 @@
+package: .
+import:
+- package: google.golang.org/grpc
