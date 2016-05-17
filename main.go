@@ -78,6 +78,7 @@ func handleHealthCheck(w http.ResponseWriter, r *http.Request) {
 	if healthClient == nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(w, "NOT_HEALTHY")
+		glog.Errorf("server is not healthy, unable to connect remote grpc server")
 		return
 	}
 	ctx, _ := context.WithTimeout(context.Background(), timeoutDur)
@@ -85,11 +86,12 @@ func handleHealthCheck(w http.ResponseWriter, r *http.Request) {
 	if err == nil && resp.Status == healthpb.HealthCheckResponse_SERVING {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, "OK")
+		glog.Infof("health check is OK")
 		return
 	}
-	glog.Errorf("server is not healthy err=%v response=%v", err, resp)
 	w.WriteHeader(http.StatusInternalServerError)
 	fmt.Fprint(w, "NOT_HEALTHY")
+	glog.Errorf("server is not healthy err=%v response=%v", err, resp)
 }
 
 func main() {
