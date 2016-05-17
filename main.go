@@ -39,6 +39,7 @@ func connectToRemote() {
 	c, err := grpc.Dial(remoteUrl, opts...)
 	if err != nil {
 		glog.Errorf("failed to dial grpc server, %v", err)
+		return
 	}
 	healthConn = c
 	healthClient = healthpb.NewHealthClient(healthConn)
@@ -86,27 +87,20 @@ func handleHealthCheck(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "OK")
 		return
 	}
-	glog.Infof("server is not healthy err=%v response=%v", err, resp)
+	glog.Errorf("server is not healthy err=%v response=%v", err, resp)
 	w.WriteHeader(http.StatusInternalServerError)
 	fmt.Fprint(w, "NOT_HEALTHY")
 }
 
 func main() {
-	fs := flag.NewFlagSet("grpc-health", flag.ExitOnError)
-
-	listen := fs.String("listen", "127.0.0.1:8080", "the grpc url to check health")
-	fs.StringVar(&remoteUrl, "url", "", "the grpc url to check health")
-	fs.StringVar(&serviceName, "service", "", "the name of the service")
-	fs.BoolVar(&secureConnection, "secure-grpc", secureConnection, "do not connect to api service with tls")
-	fs.BoolVar(&insecureSkipVerify, "insecure-skip-verify", insecureSkipVerify, "enable insecure skip verify tls config")
-	fs.DurationVar(&timeoutDur, "timeout", timeoutDur, "timeout duration")
-
-	if err := fs.Parse(os.Args[1:]); err != nil {
-		fmt.Fprintln(os.Stderr, err.Error())
-		os.Exit(1)
-	}
-
-	if err := SetFlagsFromEnv(fs, "GRPC_HEALTH"); err != nil {
+	listen := flag.String("listen", "http://127.0.0.1:8080", "the grpc url to check health")
+	flag.StringVar(&remoteUrl, "url", "", "the grpc url to check health")
+	flag.StringVar(&serviceName, "service", "", "the name of the service")
+	flag.BoolVar(&secureConnection, "secure-grpc", secureConnection, "do not connect to api service with tls")
+	flag.BoolVar(&insecureSkipVerify, "insecure-skip-verify", insecureSkipVerify, "enable insecure skip verify tls config")
+	flag.DurationVar(&timeoutDur, "timeout", timeoutDur, "timeout duration")
+	flag.Parse()
+	if err := SetFlagsFromEnv(flag.CommandLine, "GRPC_HEALTH"); err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
 		os.Exit(1)
 	}
@@ -127,6 +121,7 @@ func main() {
 		Addr:    fmt.Sprintf(":%s", p),
 		Handler: mux,
 	}
+	glog.Infof("Starting grpc-health version=%s", Version)
 	glog.Infof("Binding to %s...", httpsrv.Addr)
 	glog.Fatal(httpsrv.ListenAndServe())
 }

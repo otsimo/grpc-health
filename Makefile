@@ -1,15 +1,15 @@
 .PHONY: default build clean
 
-gcrenv="prod"
+env="prod"
 imgorg="otsimo"
 
 default: build
 
 build:
-	sh build.sh local $(gcrenv) $(imgorg)
+	sh build.sh local $(env) $(imgorg)
 
 docker:
-	sh build.sh docker $(gcrenv) $(imgorg)
+	sh build.sh docker $(env) $(imgorg)
 
 fmt:
 	goimports -w main.go
