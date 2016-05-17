@@ -26,6 +26,7 @@ var (
 	secureConnection   bool          = true
 	insecureSkipVerify bool          = false
 	timeoutDur         time.Duration = time.Second
+	Version            string        = "DEV"
 )
 
 func connectToRemote() {
